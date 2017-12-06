@@ -9,11 +9,47 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'API_URL', API_URL
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            shrinkResources false
+
+            //版本名字加上后缀，便于识别
+            versionNameSuffix "-debug"
+        }
+        release {
+            minifyEnabled true
+            shrinkResources false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //指定apk的命名规则
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    if (outputFileName.endsWith('.apk')) {
+                        outputFileName = "zaihui_${variant.productFlavors[0].properties.get("versionName")}_${variant.productFlavors[0].name}.apk"
+                    }
+                }
+            }
+
+            signingConfig signingConfigs.release
+        }
+    }
+
+    signingConfigs {
+        release {
+            // Load keystore
+            if(rootProject.file("keystore.properties").exists()){
+                def keystoreProperties = new Properties()
+                def keystorePropertiesFile = rootProject.file("keystore.properties")
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
         }
     }
 }
