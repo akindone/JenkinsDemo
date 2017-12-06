@@ -11,32 +11,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'API_URL', API_URL
     }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            shrinkResources false
-
-            //版本名字加上后缀，便于识别
-            versionNameSuffix "-debug"
-        }
-        release {
-            minifyEnabled true
-            shrinkResources false
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            //指定apk的命名规则
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    if (outputFileName.endsWith('.apk')) {
-                        outputFileName = "zaihui_${variant.productFlavors[0].properties.get("versionName")}_${variant.productFlavors[0].name}.apk"
-                    }
-                }
-            }
-
-            signingConfig signingConfigs.release
-        }
-    }
 
     signingConfigs {
         release {
@@ -52,6 +26,25 @@ android {
             }
         }
     }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+
+            //版本名字加上后缀，便于识别
+            versionNameSuffix "-debug"
+        }
+        release {
+            minifyEnabled true
+            shrinkResources false
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 dependencies {
