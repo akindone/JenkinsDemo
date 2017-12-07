@@ -27,6 +27,25 @@ android {
         }
     }
 
+    productFlavors {
+
+        free {
+            applicationId "com.example.free"
+            versionCode 2
+            versionName "1.0.2"
+
+        }
+
+        paied {
+            applicationId "com.example.paied"
+            versionCode 20
+            versionName "2.0.0"
+
+        }
+
+
+    }
+
 
     buildTypes {
         debug {
