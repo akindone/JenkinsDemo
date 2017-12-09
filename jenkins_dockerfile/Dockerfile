@@ -23,7 +23,7 @@ ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 ENV BUILD_TOOLS_VERSION 26.0.2
-ENV ANDROID_VERSION 26
+ENV ANDROID_VERSION 25
 RUN /opt/scripts/android-accept-licenses.sh "sdkmanager platform-tools"
 RUN /opt/scripts/android-accept-licenses.sh "sdkmanager build-tools;${BUILD_TOOLS_VERSION}"
 RUN /opt/scripts/android-accept-licenses.sh "sdkmanager platforms;android-${ANDROID_VERSION}"
